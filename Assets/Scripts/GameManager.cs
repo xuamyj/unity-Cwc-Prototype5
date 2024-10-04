@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 {
     public List<GameObject> targets;
 
+    public GameObject titleScreen;
+
     /* ---- LIVES ---- */
     public TextMeshProUGUI gameOverText;
     public Button restartButton;
@@ -20,10 +22,15 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     private int score;
 
-    private float spawnRate = 1.0f;
+    private float spawnRate = 1.5f;
 
     // Start is called before the first frame update
     void Start()
+    {
+        // everything moved to StartGame()
+    }
+
+    public void StartGame(int difficulty)
     {
         /* ---- LIVES ---- */
         numLives = totalLives;
@@ -32,6 +39,9 @@ public class GameManager : MonoBehaviour
         /* ---- TEXT ---- */
         score = 0;
         UpdateScore(0);
+
+        titleScreen.gameObject.SetActive(false);
+        spawnRate /= difficulty;
 
         StartCoroutine(SpawnTarget());
     }
